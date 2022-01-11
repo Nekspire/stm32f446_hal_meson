@@ -39,11 +39,16 @@ c_link_args += [
 ]
 
 # set 'software' or 'hardware' floating point unit type
-fpu = ''
+# default value: 'soft'
+fpu = 'soft'
 
 # check which fpu type add set compiler and linker flags 
 if fpu == 'hard'
     c_args += [
+        '-mfloat-abi=hard',
+        '-mfpu=fpv4-sp-d16'
+    ]
+    c_link_args += [
         '-mfloat-abi=hard',
         '-mfpu=fpv4-sp-d16'
     ]
