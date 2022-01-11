@@ -1,0 +1,1 @@
+STM32F446 HAL Meson project template for VSCode

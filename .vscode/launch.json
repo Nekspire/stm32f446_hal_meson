@@ -1,0 +1,23 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "cortex-debug",
+            "request": "launch",
+            "name": "Debug OpenOCD",
+            "servertype": "openocd",
+            "cwd": "${workspaceRoot}",
+            //"runToMain": true,
+            "executable": "./builddir/stm32f446_hal_meson.elf",
+            "device": "STM32F446",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32f4x.cfg"
+            ],
+            "svdFile": "/home/neks/Embedded/cmsis-svd/data/STMicro/STM32F446.svd",
+        }
+    ]
+}
