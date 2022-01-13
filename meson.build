@@ -1,10 +1,13 @@
 project(
     'stm32f446_hal_meson',
-    'c',
+    ['c', 'cpp'],
     version: '0.1',
     meson_version: '>=0.60.0',
     default_options: ['c_std=c11', 'warning_level=3']
 )
+
+# include the test framework
+cpputestdep = dependency('CppUTest', native : true)
 
 # global variables tracking sources and includes
 c_args = []
@@ -135,3 +138,14 @@ hex = custom_target(
     build_by_default: true,
     depends: elf
 )
+
+# create executable based on cpputest dependency
+testexe = executable(
+    'testexe',
+    ['test/testcase.cpp', 'test/testrunner.cpp'],
+    link_args : ['-lpthread', '-lCppUTest', '-lCppUTestExt'],
+    dependencies: cpputestdep,
+    native : true
+)
+
+test('Unit tests', testexe)
