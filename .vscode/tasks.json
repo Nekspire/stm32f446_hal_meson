@@ -1,44 +1,135 @@
 {
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "label": "build debug",
-            "command": "meson compile -C builddir",
-            "type": "shell",
-            "args": [],
-            "options": {
-                "cwd": "${workspaceFolder}"
-            },
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
-        },
-        {
-            "label": "build clean",
-            "command": "ninja -v clean",
-            "type": "shell",
-            "args": [],
-            "options": {
-                "cwd": "${workspaceFolder}/builddir"
-            },
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
-        },
-        {
-            "label": "meson reconfigure",
-            "command": "meson setup builddir --reconfigure --cross-file cross.ini",
-            "type": "shell",
-            "args": [],
-            "options": {
-                "cwd": "${workspaceFolder}"
-            },
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
-        }
-    ]
+   "version": "2.0.0",
+   "tasks": [
+       {
+           "label": "source: build",
+           "command": "ninja",
+           "type": "shell",
+           "args": [],
+           "options": {
+               "cwd": "${workspaceFolder}/build"
+           },
+           "group": {
+               "kind": "build",
+               "isDefault": true
+           }
+       },
+       {
+           "label": "source: clean",
+           "command": "ninja clean",
+           "type": "shell",
+           "args": [],
+           "options": {
+               "cwd": "${workspaceFolder}/build"
+           },
+           "group": {
+               "kind": "build",
+               "isDefault": true
+           }
+       },
+       {
+           "label": "source: reconfigure",
+           "command": "meson setup build --cross-file subprojects/mxgen/cross.ini --reconfigure",
+           "type": "shell",
+           "args": [],
+           "options": {
+               "cwd": "${workspaceFolder}"
+           },
+           "group": {
+               "kind": "build",
+               "isDefault": true
+           }
+       },
+       {
+           "label": "source: configure",
+           "command": "meson setup build --cross-file subprojects/mxgen/cross.ini",
+           "type": "shell",
+           "args": [],
+           "options": {
+               "cwd": "${workspaceFolder}"
+           },
+           "group": {
+               "kind": "build",
+               "isDefault": true
+           }
+       },
+       {
+           "label": "tests: reconfigure",
+           "command": "meson setup build --reconfigure -Db_coverage=true",
+           "type": "shell",
+           "args": [],
+           "options": {
+               "cwd": "${workspaceFolder}/tests"
+           },
+           "group": {
+               "kind": "build",
+               "isDefault": true
+           }
+       },
+       {
+           "label": "tests: configure",
+           "command": "meson setup build -Db_coverage=true",
+           "type": "shell",
+           "args": [],
+           "options": {
+               "cwd": "${workspaceFolder}/tests"
+           },
+           "group": {
+               "kind": "build",
+               "isDefault": true
+           }
+       },
+       {
+           "label": "tests: build execute coverage",
+           "command": "meson test;ninja coverage-html",
+           "type": "shell",
+           "args": [],
+           "options": {
+               "cwd": "${workspaceFolder}/tests/build"
+           },
+           "group": {
+               "kind": "build",
+               "isDefault": true
+           }
+       },
+       {
+           "label": "testes: coverage",
+           "command": "ninja coverage-html",
+           "type": "shell",
+           "args": [],
+           "options": {
+               "cwd": "${workspaceFolder}/tests/build"
+           },
+           "group": {
+               "kind": "build",
+               "isDefault": true
+           }
+       },
+       {
+           "label": "testes: build execute",
+           "command": "meson test",
+           "type": "shell",
+           "args": [],
+           "options": {
+               "cwd": "${workspaceFolder}/tests/build"
+           },
+           "group": {
+               "kind": "build",
+               "isDefault": true
+           }
+       },
+       {
+           "label": "testes: clean",
+           "command": "ninja clean",
+           "type": "shell",
+           "args": [],
+           "options": {
+               "cwd": "${workspaceFolder}/tests/build"
+           },
+           "group": {
+               "kind": "build",
+               "isDefault": true
+           }
+       }
+   ]
 }
